@@ -8,7 +8,7 @@ applications:
   buildpack: https://github.com/chregu/cf-php-varnish-buildpack
   env:
     VARNISH_MEMORY_LIMIT: 2G
-    SSHFS_NAMESPACE: "open.restaraunt.on.ibm.bluemix"
+    SSHFS_NAMESPACE: "open.restaurant.on.ibm.bluemix"
   services:
   -  openresdb
   -  sendmail
