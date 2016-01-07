@@ -1,0 +1,15 @@
+---
+applications:
+- name: buttercream
+  memory: 3G
+  instances: 1
+  path: .
+  stack: cflinuxfs2
+  buildpack: https://github.com/chregu/cf-php-varnish-buildpack
+  env:
+    VARNISH_MEMORY_LIMIT: 2G
+    SSHFS_NAMESPACE: "open.restaraunt.on.ibm.bluemix"
+  services:
+  -  openresdb
+  -  sendmail
+  -  sendsms
