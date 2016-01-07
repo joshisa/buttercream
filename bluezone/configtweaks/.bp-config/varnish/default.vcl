@@ -137,13 +137,15 @@ sub authcache_recv {
   }
   
   # Do not allow outside access to cron.php or install.php.
-  if (req.url ~ "^/(cron|install)\.php$" && !client.ip ~ internal) {
-    # Have Varnish throw the error directly.
-    error 404 "Page not found.";
-    # Use a custom error page that you've defined in Drupal at the path "404".
-    set req.url = "/404";
-  }
- 
+  # Consider Uncommenting after installation is complete
+  /*
+      if (req.url ~ "^/(cron|install)\.php$" && !client.ip ~ internal) {
+        # Have Varnish throw the error directly.
+        error 404 "Page not found.";
+        # Use a custom error page that you've defined in Drupal at the path "404".
+        set req.url = "/404";
+      }
+ */
  
   # Always cache the following file types for all users. This list of extensions
   # appears twice, once here and again in vcl_fetch so make sure you edit both
