@@ -61,6 +61,12 @@ stages:
       echo -e "${tools}${Yellow}    Extracting Open Restaurant${no_color}"
       unzip -o ./bluezone/restaurant.zip -d ./htdocs > /dev/null 2>&1
       
+      echo -e "${tools}${Red}      Patching Inline Entity Module to address Undefined index: #language error ...${no_color}"
+      echo -e "${tools}${Yellow}      Reference: https://www.drupal.org/node/2202575 ${no_color}"  
+      wget https://www.drupal.org/files/issues/2202575-undefined_index_language-1.patch -nv -O ./2202575-undefined_index_language-1.patch
+      patch -p4 -d ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/contrib/inline_entity_form/ < ./2202575-undefined_index_language-1.patch
+      rm 2202575-undefined_index_language-1.patch
+      
       # Optimization to speed up build script when SSHFS is in play.  No need to assemble the
       # sites directory after SSHFS is "in effect"
       if [ ${SSHFS_COMPLETE} != "yes" ]; then 
