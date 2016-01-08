@@ -190,12 +190,13 @@ sub authcache_recv {
   //  * More information on:
   //  * https://www.varnish-cache.org/docs/3.0/tutorial/purging.html
   //  */
-  // if (req.method == "PURGE") {
-  //   if (!client.ip ~ purge) {
-  //     error 405 "Not allowed.";
-  //   }
-  //   return (lookup);
-  // }
+  if (req.request == "PURGE") {
+     // if (!client.ip ~ purge) {
+     //   error 405 "Not allowed.";
+     // }
+     // Allow purges from any client
+     return (lookup);
+  }
 
   // /**
   //  * Example 2: Do not allow outside access to cron.php or install.php.
@@ -283,6 +284,22 @@ sub authcache_recv {
   if (!req.http.X-Authcache-Get-Key) {
     set req.http.X-Authcache-Get-Key = "get";
   }
+}
+
+# VCL_HIT
+sub vcl_hit {
+    if (req.request == "PURGE") {
+        purge;
+        error 200 "Purged.";
+    }
+}
+
+# VCL_MISS
+sub vcl_miss {
+    if (req.request == "PURGE") {
+        purge;
+        error 200 "Purged.";
+    }
 }
 
 # VCL_DELIVER 
