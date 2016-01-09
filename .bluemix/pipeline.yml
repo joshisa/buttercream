@@ -169,6 +169,7 @@ stages:
         echo -e "${tools}${Yellow}      Reference: https://www.drupal.org/node/2458453 ${no_color}"
         wget https://www.drupal.org/files/issues/imageapi_optimize-add-resmushit-service-2458453-25.patch -nv -O ./imageapi_optimize-add-resmushit-service-2458453-25.patch
         patch -p1 -d ./htdocs/${INSTALLPKG}/sites/all/modules/contrib/imageapi_optimize < ./imageapi_optimize-add-resmushit-service-2458453-25.patch
+        rm imageapi_optimize-add-resmushit-service-2458453-25.patch
         
         echo -e "${tools}${Red}      Patching Varnish Module to fix theme_hook_original on port bug ...${no_color}"
         echo -e "${tools}${Yellow}      Reference: https://www.drupal.org/node/2371907#comment-9468011 ${no_color}"
@@ -229,6 +230,10 @@ stages:
       mv ./bluezone/configtweaks/extension.py .extensions/mod_pagespeed
       mv ./bluezone/configtweaks/.php-extensions .
       mv ./bluezone/configtweaks/custom_apache .
+      
+      echo -e "${cloud}${Yellow}    Removing default .htaccess in order to fallback to better performing httpd.conf ...${no_color}"
+      rm ./htdocs/${INSTALLPKG}/.htaccess
+      
       # Organize the artifact structure to facilitate BMX deploy
       echo -e "${cloud}${Yellow}    Making drupal artifacts ${Cyan}Bluemix ${Yellow}friendly ...${no_color}"
       mv ./bluezone/configtweaks/.user.ini ./htdocs/${INSTALLPKG}
