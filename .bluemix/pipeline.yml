@@ -66,28 +66,28 @@ stages:
       wget https://www.drupal.org/files/issues/2202575-undefined_index_language-1.patch -nv -O ./2202575-undefined_index_language-1.patch
       patch -p4 -d ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/contrib/inline_entity_form/ < ./2202575-undefined_index_language-1.patch
       rm 2202575-undefined_index_language-1.patch
-      
+
       echo -e "${tools}${Red}      SSL Enabling fonts.googleapis.com references ...${no_color}"
       echo -e "${tools}${Yellow}      Reference: https://www.drupal.org/node/2030769 ${no_color}"
-      echo -e "${eyes}${Cyan}      SSL Enabling ./profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss${no_color}"  
-      cat ./profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss.ssl
-      rm ./profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss
-      mv ./profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss.ssl ./profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss
+      echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss${no_color}"  
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss.ssl
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss
+      mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss
       
-      echo -e "${eyes}${Cyan}      SSL Enabling ./profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss${no_color}" 
-      cat ./profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss.ssl
-      rm ./profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss
-      mv ./profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss.ssl ./profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss
+      echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss${no_color}" 
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss.ssl
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss
+      mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss
       
-      echo -e "${eyes}${Cyan}      SSL Enabling ./profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss${no_color}" 
-      cat ./profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss.ssl
-      rm ./profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss
-      mv ./profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss.ssl ./profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss
+      echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss${no_color}" 
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss.ssl
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss
+      mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss
       
-      echo -e "${eyes}${Cyan}      SSL Enabling ./profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss${no_color}" 
-      cat ./profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss | sed -e 's/http://g' -e 's/https://g' > ./profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss.ssl
-      rm ./profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss
-      mv ./profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss.ssl ./profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss
+      echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss${no_color}" 
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss | sed -e 's/http://g' -e 's/https://g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss.ssl
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss
+      mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss
 
       # Optimization to speed up build script when SSHFS is in play.  No need to assemble the
       # sites directory after SSHFS is "in effect"
