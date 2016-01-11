@@ -97,16 +97,23 @@ stages:
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/menu.inc.tmp
       
       echo -e "${tools}${Cyan}      Customizing Sizzle Theme for Cakes ...${no_color}"
+      # Tweaking Book a Table to Reserve your Cake
       cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php | sed "s/Book a Table/Reserve Your Cake/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php.tmp
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php
       cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php.tmp | sed "s/The Menu/Cake List/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php.tmp
       
+      # Tweaking See Menu Entry within Locations to See Cakes
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/node.inc | sed "s/See Menu/See Cakes/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/node.inc.tmp
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/node.inc
+      mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/node.inc.tmp ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/node.inc
+      
+      # Tweaking popular menus to popular cakes
       cat ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc | sed "s/popular menus/popular cakes/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc.tmp
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc
       cat ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc.tmp | sed "s/Menus</Cakes</g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc.tmp
-      
+
       echo -e "${tools}${Cyan}      Fixing Typo in Admin Screen (Nutriton sp?) ...${no_color}"
       cat ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.module | sed "s/Nutriton/Nutrition/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.module.tmp
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.module
