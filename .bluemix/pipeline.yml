@@ -66,29 +66,52 @@ stages:
       wget https://www.drupal.org/files/issues/2202575-undefined_index_language-1.patch -nv -O ./2202575-undefined_index_language-1.patch
       patch -p4 -d ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/contrib/inline_entity_form/ < ./2202575-undefined_index_language-1.patch
       rm 2202575-undefined_index_language-1.patch
-
+      
       echo -e "${tools}${Red}      SSL Enabling fonts.googleapis.com references ...${no_color}"
       echo -e "${tools}${Yellow}      Reference: https://www.drupal.org/node/2030769 ${no_color}"
       echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss${no_color}"  
-      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss.ssl
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss | sed -e 's/http:/https:/g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss.ssl
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss
       mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss
       
       echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss${no_color}" 
-      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss.ssl
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss | sed -e 's/http:/https:/g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss.ssl
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss
       mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss
       
       echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss${no_color}" 
-      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss | sed -e 's/http://g' -e 's/https://g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss.ssl
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss | sed -e 's/http:/https:/g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss.ssl
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss
       mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_radix/assets/sass/global/_variable.scss
       
       echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss${no_color}" 
-      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss | sed -e 's/http://g' -e 's/https://g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss.ssl
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss | sed -e 's/http:/https:/g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss.ssl
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss
       mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_font.scss
-
+      
+      echo -e "${tools}${Red}      Repairing Strict warning: Only variables should be passed by reference ...${no_color}"
+      echo -e "${eyes}${Yellow}      Reference: http://drupal.stackexchange.com/questions/185107/strict-warning-only-variables-should-be-passed-by-reference-in-open-restaurant ${no_color}"
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/menu.inc | sed "s/taxonomy_term_view(\$term, \$view_mode)/\$plain_var/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/menu.inc.tmp
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/menu.inc
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/menu.inc.tmp | sed "s/\/\/ Render the category and add it to template./\$plain_var = taxonomy_term_view(\$term, \$view_mode);/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/menu.inc
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/includes/menu.inc.tmp
+      
+      echo -e "${tools}${Cyan}      Customizing Sizzle Theme for Cakes ...${no_color}"
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php | sed "s/Book a Table/Reserve Your Cake/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php.tmp
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php.tmp | sed "s/The Menu/Cake List/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/template.php.tmp
+      
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc | sed "s/popular menus/popular cakes/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc.tmp
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc.tmp | sed "s/Menus</Cakes</g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.views_default.inc.tmp
+      
+      echo -e "${tools}${Cyan}      Fixing Typo in Admin Screen (Nutriton sp?) ...${no_color}"
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.module | sed "s/Nutriton/Nutrition/g" > ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.module.tmp
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.module
+      mv ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.module.tmp ./htdocs/${INSTALLPKG}/profiles/restaurant/modules/restaurant/restaurant_menu/restaurant_menu.module
+      
       # Optimization to speed up build script when SSHFS is in play.  No need to assemble the
       # sites directory after SSHFS is "in effect"
       if [ ${SSHFS_COMPLETE} != "yes" ]; then 
@@ -231,13 +254,13 @@ stages:
       mv ./bluezone/configtweaks/.php-extensions .
       mv ./bluezone/configtweaks/custom_apache .
       
-      echo -e "${cloud}${Yellow}    Removing default .htaccess in order to fallback to better performing httpd.conf ...${no_color}"
+      echo -e "${cloud}${Yellow}    Hardening drupal .htaccess ...${no_color}"
       rm ./htdocs/${INSTALLPKG}/.htaccess
       
       # Organize the artifact structure to facilitate BMX deploy
       echo -e "${cloud}${Yellow}    Making drupal artifacts ${Cyan}Bluemix ${Yellow}friendly ...${no_color}"
       mv ./bluezone/configtweaks/.user.ini ./htdocs/${INSTALLPKG}
-
+      
       if [ ${SSHFS_COMPLETE} != "yes" ]; then
         # Embed config file if provided
         if [ -f "./bluezone/configtweaks/settings.php" ]; then
