@@ -74,6 +74,16 @@ stages:
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss
       mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/sass/global/_variable.scss
       
+      echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/stylesheets/sizzle.screen.css${no_color}"  
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/stylesheets/sizzle.screen.css | sed -e 's/http:/https:/g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/stylesheets/sizzle.screen.css.ssl
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/stylesheets/sizzle.screen.css
+      mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/stylesheets/sizzle.screen.css.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/sizzle/assets/stylesheets/sizzle.screen.css
+      
+      echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/stylesheets/screen.css${no_color}"  
+      cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/stylesheets/screen.css | sed -e 's/http:/https:/g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/stylesheets/screen.css.ssl
+      rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/stylesheets/screen.css
+      mv ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/stylesheets/screen.css.ssl ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/stylesheets/screen.css
+
       echo -e "${eyes}${Cyan}      SSL Enabling ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss${no_color}" 
       cat ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss | sed -e 's/http:/https:/g' > ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss.ssl
       rm ./htdocs/${INSTALLPKG}/profiles/restaurant/themes/restaurant_seven/assets/sass/global/_variable.scss
